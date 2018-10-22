@@ -16,16 +16,16 @@ app.use(
 );
 
 // Add Controllers
-const Account = require('../controllers/accountcontroller')
-const Media = require('../controllers/mediacontroller')
-const Playlist = require('../controllers/playlistcontroller')
-const PlaylistItem = require('../controllers/playlistitemcontroller')
-const Schedule = require('../controllers/schedulecontroller')
-const Screen = require('../controllers/screencontroller')
-const User = require('../controllers/usercontroller')
+const Account = require("../controllers/accountcontroller");
+const Media = require("../controllers/mediacontroller");
+const Playlist = require("../controllers/playlistcontroller");
+const PlaylistItem = require("../controllers/playlistitemcontroller");
+const Schedule = require("../controllers/schedulecontroller");
+const Screen = require("../controllers/screencontroller");
+const User = require("../controllers/usercontroller");
 
 // Require Headers
-app.use(require('../middleware/headers'))
+app.use(require("../middleware/headers"));
 
 // x-response-time
 app.use(async (ctx: Context, next) => {
@@ -55,14 +55,14 @@ app.use(async (ctx: Context, next: Function) => {
 const router = new Router();
 
 // Add routes here
-app.use('/user', User);
-app.use(require('../middleware/validate-session'));
-app.use('/account', Account);
-app.use('/media', Media);
-app.use('/playlist', Playlist);
-app.use('/playlist-item', PlaylistItem);
-app.use('/schedule', Schedule);
-app.use('/screen', Screen);
+router.use("/user", User);
+router.use(require("../middleware/validate-session"));
+router.use("/account", Account);
+router.use("/media", Media);
+router.use("/playlist", Playlist);
+router.use("/playlist-item", PlaylistItem);
+router.use("/schedule", Schedule);
+router.use("/screen", Screen);
 
 app.use(router.routes());
 app.use((ctx: Context) => {
@@ -70,7 +70,7 @@ app.use((ctx: Context) => {
 	ctx.body = { error: "Route not found" };
 });
 
-require('../associations.js')
+require("../associations.js");
 
 const port = process.env.PORT || 3000;
 app.listen(port);
