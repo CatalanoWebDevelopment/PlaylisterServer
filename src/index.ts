@@ -57,8 +57,12 @@ const router = new Router();
 // Add routes here
 app.use('/user', User);
 app.use(require('../middleware/validate-session'));
-
-
+app.use('/account', Account);
+app.use('/media', Media);
+app.use('/playlist', Playlist);
+app.use('/playlist-item', PlaylistItem);
+app.use('/schedule', Schedule);
+app.use('/screen', Screen);
 
 app.use(router.routes());
 app.use((ctx: Context) => {
