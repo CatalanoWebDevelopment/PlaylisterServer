@@ -7,8 +7,11 @@ const Schedule = sequelize.model('schedule')
 const Screen = sequelize.model('screen')
 const User = sequelize.model('user')
 
-
-
+Account.hasMany(User)
+Account.hasMany(Media)
+Account.hasMany(Group)
+Account.hasMany(Playlist)
+Account.hasMany(PlaylistItem)
 
 sequelize.sync()
   .then(() => {
