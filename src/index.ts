@@ -15,6 +15,18 @@ app.use(
 	})
 );
 
+// Add Controllers
+const Account = require('../controllers/accountcontroller')
+const Media = require('../controllers/mediacontroller')
+const Playlist = require('../controllers/playlistcontroller')
+const PlaylistItem = require('../controllers/playlistitemcontroller')
+const Schedule = require('../controllers/schedulecontroller')
+const Screen = require('../controllers/screencontroller')
+const User = require('../controllers/usercontroller')
+
+// Require Headers
+app.use(require('../middleware/headers'))
+
 // x-response-time
 app.use(async (ctx: Context, next) => {
 	const start = Date.now();
@@ -43,12 +55,18 @@ app.use(async (ctx: Context, next: Function) => {
 const router = new Router();
 
 // Add routes here
+app.use('/user', User);
+app.use(require('../middleware/validate-session'));
+
+
 
 app.use(router.routes());
 app.use((ctx: Context) => {
 	ctx.status = 404;
 	ctx.body = { error: "Route not found" };
 });
+
+require('../associations.js')
 
 const port = process.env.PORT || 3000;
 app.listen(port);
