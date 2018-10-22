@@ -1,0 +1,39 @@
+{
+  "name": "playlister-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "postinstall": "tsc",
+    "dev": "tsc && concurrently -k --raw \"tsc -w --noEmit\" \"nodemon dist/index.js\"",
+    "start": "node dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tsc": "tsc",
+    "watch-ts": "tsc -w",
+    "watch-node": "nodemon dist/index.js"
+  },
+  "author": "Kevin Smith",
+  "dependencies": {
+    "dotenv": "^6.1.0",
+    "koa": "^2.5.3",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.4.0",
+    "pg": "^7.5.0",
+    "pg-hstore": "^2.3.2",
+    "pg-native": "^3.0.0",
+    "sequelize": "^4.41.0"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^4.0.3",
+    "@types/koa": "^2.0.46",
+    "@types/koa-bodyparser": "^5.0.1",
+    "@types/koa-router": "^7.0.32",
+    "@types/node": "^10.12.0",
+    "@types/sequelize": "^4.27.28",
+    "concurrently": "^4.0.1",
+    "nodemon": "^1.18.4",
+    "prettier": "^1.14.3",
+    "typescript": "^3.1.3"
+  }
+}
