@@ -16,13 +16,13 @@ app.use(
 );
 
 // Add Controllers
-const Account = require("../controllers/accountcontroller");
-const Media = require("../controllers/mediacontroller");
-const Playlist = require("../controllers/playlistcontroller");
-const PlaylistItem = require("../controllers/playlistitemcontroller");
-const Schedule = require("../controllers/schedulecontroller");
-const Screen = require("../controllers/screencontroller");
-const User = require("../controllers/usercontroller");
+const AccountController = require("../controllers/accountcontroller");
+const MediaController = require("../controllers/mediacontroller");
+const PlaylistController = require("../controllers/playlistcontroller");
+const PlaylistItemController = require("../controllers/playlistitemcontroller");
+const ScheduleController = require("../controllers/schedulecontroller");
+const ScreenController = require("../controllers/screencontroller");
+const UserController = require("../controllers/usercontroller");
 
 // Require Headers
 app.use(require("../middleware/headers"));
@@ -55,14 +55,14 @@ app.use(async (ctx: Context, next: Function) => {
 const router = new Router();
 
 // Add routes here
-router.use("/user", User);
+router.use("/user", UserController);
 router.use(require("../middleware/validate-session"));
-router.use("/account", Account);
-router.use("/media", Media);
-router.use("/playlist", Playlist);
-router.use("/playlist-item", PlaylistItem);
-router.use("/schedule", Schedule);
-router.use("/screen", Screen);
+router.use("/account", AccountController);
+router.use("/media", MediaController);
+router.use("/playlist", PlaylistController);
+router.use("/playlist-item", PlaylistItemController);
+router.use("/schedule", ScheduleController);
+router.use("/screen", ScreenController);
 
 app.use(router.routes());
 app.use((ctx: Context) => {

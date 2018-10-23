@@ -1,39 +1,39 @@
 const sequelize = require("./db");
-const Account = sequelize.model("account");
-const Media = sequelize.model("media");
-const Playlist = sequelize.model("playlist");
-const PlaylistItem = sequelize.model("playlist_item");
-const Schedule = sequelize.model("schedule");
-const Screen = sequelize.model("screen");
-const User = sequelize.model("user");
-const Group = sequelize.model("group");
+const AccountModel = sequelize.model("account");
+const MediaModel = sequelize.model("media");
+const PlaylistModel = sequelize.model("playlist");
+const PlaylistItemModel = sequelize.model("playlist_item");
+const ScheduleModel = sequelize.model("schedule");
+const ScreenModel = sequelize.model("screen");
+const UserModel = sequelize.model("user");
+const GroupModel = sequelize.model("group");
 
-Account.hasMany(User);
-Account.hasMany(Media);
-Account.hasMany(Group);
-Account.hasMany(Screen);
-Account.hasMany(Playlist);
-Account.hasMany(Schedule);
+AccountModel.hasMany(UserModel);
+AccountModel.hasMany(MediaModel);
+AccountModel.hasMany(GroupModel);
+AccountModel.hasMany(ScreenModel);
+AccountModel.hasMany(PlaylistModel);
+AccountModel.hasMany(ScheduleModel);
 
-User.belongsTo(Account);
-Media.belongsTo(Account);
-Group.belongsTo(Account);
-Screen.belongsTo(Account);
-Playlist.belongsTo(Account);
-Schedule.belongsTo(Account);
+UserModel.belongsTo(AccountModel);
+MediaModel.belongsTo(AccountModel);
+GroupModel.belongsTo(AccountModel);
+ScreenModel.belongsTo(AccountModel);
+PlaylistModel.belongsTo(AccountModel);
+ScheduleModel.belongsTo(AccountModel);
 
-Playlist.belongsTo(Group);
-Screen.belongsTo(Group);
-Schedule.belongsTo(Group);
-Media.belongsTo(Group);
+PlaylistModel.belongsTo(GroupModel);
+ScreenModel.belongsTo(GroupModel);
+ScheduleModel.belongsTo(GroupModel);
+MediaModel.belongsTo(GroupModel);
 
-PlaylistItem.belongsTo(Media);
-PlaylistItem.belongsTo(Playlist);
+PlaylistItemModel.belongsTo(MediaModel);
+PlaylistItemModel.belongsTo(PlaylistModel);
 
-PlaylistItem.belongsToMany(Group, { through: 'playlist' });
-PlaylistItem.belongsToMany(Account, { through: 'media' });
+PlaylistItemModel.belongsToMany(GroupModel, { through: 'playlist' });
+PlaylistItemModel.belongsToMany(AccountModel, { through: 'media' });
 
-Screen.belongsToMany(Account, { through: 'group' });
+ScreenModel.belongsToMany(AccountModel, { through: 'group' });
 
 
 sequelize.sync().then(() => {
