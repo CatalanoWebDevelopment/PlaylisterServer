@@ -6,6 +6,8 @@ import { Context } from "koa";
 import Router from "koa-router";
 import bodyParser from "koa-bodyparser";
 import { userRouter } from "./routes/userRoutes";
+import { accountRouter } from "./routes/accountRoutes";
+import { errorHandler } from "./middleware/errorHandling";
 
 const app = new Koa();
 app.use(
@@ -35,19 +37,13 @@ app.use(async (ctx: Context, next) => {
 	console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
 });
 
-app.use(async (ctx: Context, next: Function) => {
-	try {
-		await next();
-	} catch (error) {
-		ctx.status = error.status || 503;
-		ctx.body = { error: error.message };
-	}
-});
+app.use(errorHandler);
 
 const router = new Router();
 
 // Add Routers
 router.use("/user", userRouter.routes());
+router.use("/account", accountRouter.routes());
 
 app.use(router.routes());
 app.use((ctx: Context) => {

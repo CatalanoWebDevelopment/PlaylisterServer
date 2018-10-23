@@ -1,3 +1,5 @@
+import { createContext } from "vm";
+
 const User = require("../db").import("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -54,6 +56,23 @@ class UserService {
 				error: true,
 				errorMsg: "User doesn't exist"
 			};
+		}
+	}
+
+	async userDelete(userId) {
+		const foundUser = await User.findOne({
+			where: { id: userId }
+		});
+
+		if (!foundUser) {
+			const e = new Error("User Not Found");
+			return e.message;
+		} else {
+			await User.destroy({
+				where: { id: userId }
+			});
+
+			return { success: true };
 		}
 	}
 }

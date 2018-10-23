@@ -20,3 +20,11 @@ userRouter.post("/register", async ctx => {
 		result
 	};
 });
+
+userRouter.delete("/:id", async ctx => {
+	const result = await userController.userDelete(ctx.params.id);
+
+	ctx.body = {
+		result
+	};
+});
