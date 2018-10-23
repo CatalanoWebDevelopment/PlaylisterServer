@@ -1,11 +1,11 @@
 const Sequelize = require('sequelize'); 
 
-const sequelize = new Sequelize('winemaster', 'postgres', process.env.PASS, {
+const seq = new Sequelize('playlister', 'postgres', process.env.PASS, {
     host: 'localhost',
     dialect: 'postgres'
 })
 
-sequelize.authenticate().then(
+seq.authenticate().then(
     function() {
         console.log("Connected to Playlister Database.")
     },
@@ -14,4 +14,4 @@ sequelize.authenticate().then(
     }
 );
 
-module.exports = sequelize;
+module.exports = seq;
