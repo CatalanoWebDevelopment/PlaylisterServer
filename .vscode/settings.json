@@ -9,6 +9,7 @@
     "javascript.validate.enable": false,
     "cSpell.words": [
         "bodyparser",
-        "playlister"
+        "playlister",
+        "usercontroller"
     ]
 }

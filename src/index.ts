@@ -5,6 +5,7 @@ import Koa from "koa";
 import { Context } from "koa";
 import Router from "koa-router";
 import bodyParser from "koa-bodyparser";
+import { userRouter } from "./routes/userRoutes";
 
 const app = new Koa();
 app.use(
@@ -15,17 +16,8 @@ app.use(
 	})
 );
 
-// Add Controllers
-const AccountController = require("../controllers/accountcontroller");
-const MediaController = require("../controllers/mediacontroller");
-const PlaylistController = require("../controllers/playlistcontroller");
-const PlaylistItemController = require("../controllers/playlistitemcontroller");
-const ScheduleController = require("../controllers/schedulecontroller");
-const ScreenController = require("../controllers/screencontroller");
-const UserController = require("../controllers/usercontroller");
-
 // Require Headers
-app.use(require("../middleware/headers"));
+// app.use(require("./middleware/headers"));
 
 // x-response-time
 app.use(async (ctx: Context, next) => {
@@ -54,15 +46,8 @@ app.use(async (ctx: Context, next: Function) => {
 
 const router = new Router();
 
-// Add routes here
-router.use("/user", UserController);
-router.use(require("../middleware/validate-session"));
-router.use("/account", AccountController);
-router.use("/media", MediaController);
-router.use("/playlist", PlaylistController);
-router.use("/playlist-item", PlaylistItemController);
-router.use("/schedule", ScheduleController);
-router.use("/screen", ScreenController);
+// Add Routers
+router.use("/user", userRouter.routes());
 
 app.use(router.routes());
 app.use((ctx: Context) => {
@@ -70,7 +55,7 @@ app.use((ctx: Context) => {
 	ctx.body = { error: "Route not found" };
 });
 
-require("../associations.js");
+require("./associations.js");
 
 const port = process.env.PORT || 3000;
 app.listen(port);

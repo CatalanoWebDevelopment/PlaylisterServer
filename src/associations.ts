@@ -1,12 +1,12 @@
 const sequelize = require("./db");
-const AccountModel = sequelize.model("account");
-const MediaModel = sequelize.model("media");
-const PlaylistModel = sequelize.model("playlist");
-const PlaylistItemModel = sequelize.model("playlist_item");
-const ScheduleModel = sequelize.model("schedule");
-const ScreenModel = sequelize.model("screen");
-const UserModel = sequelize.model("user");
-const GroupModel = sequelize.model("group");
+const AccountModel = sequelize.import("./models/account");
+const MediaModel = sequelize.import("./models/media");
+const PlaylistModel = sequelize.import("./models/playlist");
+const PlaylistItemModel = sequelize.import("./models/playlistItem");
+const ScheduleModel = sequelize.import("./models/schedule");
+const ScreenModel = sequelize.import("./models/screen");
+const UserModel = sequelize.import("./models/user");
+const GroupModel = sequelize.import("./models/group");
 
 AccountModel.hasMany(UserModel);
 AccountModel.hasMany(MediaModel);
@@ -29,12 +29,6 @@ MediaModel.belongsTo(GroupModel);
 
 PlaylistItemModel.belongsTo(MediaModel);
 PlaylistItemModel.belongsTo(PlaylistModel);
-
-PlaylistItemModel.belongsToMany(GroupModel, { through: 'playlist' });
-PlaylistItemModel.belongsToMany(AccountModel, { through: 'media' });
-
-ScreenModel.belongsToMany(AccountModel, { through: 'group' });
-
 
 sequelize.sync().then(() => {
 	console.log(`Database & tables created!`);

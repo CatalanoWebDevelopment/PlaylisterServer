@@ -13,7 +13,7 @@ module.exports = function(req, res, next) {
 				.status(403)
 				.send({ auth: false, message: "No token provided." });
 		else {
-			jwt.verify(sessionToken, process.env.JWT_SECRET, (err, decoded) => {
+			JWT.verify(sessionToken, process.env.JWT_SECRET, (err, decoded) => {
 				if (decoded) {
 					Users.findOne({ where: { id: decoded.id } }).then(
 						user => {
