@@ -20,8 +20,14 @@ app.use(
 	})
 );
 
-// Require Headers
-// app.use(require("./middleware/headers"));
+// Sessions
+const session = require("koa-session");
+app.keys = ["secret"];
+app.use(session({}, app));
+
+const passport = require("koa-passport");
+app.use(passport.initialize());
+app.use(passport.session());
 
 // x-response-time
 app.use(async (ctx: Context, next) => {
