@@ -39,6 +39,6 @@ ScheduleModel.belongsTo(PlaylistModel);
 
 // AccountModel.belongsToMany(PlaylistItemModel, { through: PlaylistModel });
 
-sequelize.sync({ force: true }).then(() => {
+sequelize.sync().then(() => {
 	console.log(`Database & tables created!`);
 });
