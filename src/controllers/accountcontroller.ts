@@ -21,7 +21,8 @@ class AccountService {
 
 		if (!foundAccount) {
 			const e: ErrorWithStatus = new Error("Account Not Found");
-			return e.message;
+			e.status = 404;
+			return `${e.message}, Status:${e.status}`;
 		} else {
 			await Account.destroy({
 				where: { id: accountId }
@@ -45,9 +46,11 @@ class AccountService {
 	}
 
 	async accountUpdate(accountId, accountObj) {
-		const updatedAccount = await Account.update(accountObj).where({
-			id: accountId
-		});
+		console.log("ACCOUNT OBJ", accountObj);
+		const updatedAccount = await Account.update(
+			{ accountObj },
+			{ where: { id: accountId } }
+		);
 
 		return updatedAccount;
 	}
