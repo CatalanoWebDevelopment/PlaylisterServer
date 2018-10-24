@@ -17,11 +17,13 @@
   "dependencies": {
     "bcrypt": "^3.0.2",
     "connect-ensure-login": "^0.1.1",
+    "cookie-parser": "^1.4.3",
     "dotenv": "^6.1.0",
     "express-session": "^1.15.6",
     "jsonwebtoken": "^8.3.0",
     "koa": "^2.5.3",
     "koa-bodyparser": "^4.2.1",
+    "koa-passport": "^4.1.1",
     "koa-router": "^7.4.0",
     "passport": "^0.4.0",
     "passport-auth0": "^1.1.0",
