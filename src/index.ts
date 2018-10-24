@@ -8,6 +8,7 @@ import bodyParser from "koa-bodyparser";
 import { userRouter } from "./routes/userRoutes";
 import { accountRouter } from "./routes/accountRoutes";
 import { errorHandler } from "./middleware/errorHandling";
+import { groupRouter } from "./routes/groupRoutes";
 
 const app = new Koa();
 app.use(
@@ -44,6 +45,7 @@ const router = new Router();
 // Add Routers
 router.use("/user", userRouter.routes());
 router.use("/account", accountRouter.routes());
+router.use("/group", groupRouter.routes());
 
 app.use(router.routes());
 app.use((ctx: Context) => {

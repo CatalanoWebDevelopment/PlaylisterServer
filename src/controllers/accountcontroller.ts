@@ -44,21 +44,12 @@ class AccountService {
 		return foundAccount;
 	}
 
-	async accountUpdate(accountObj) {
-		const foundAccount = await Account.findOne({
-			where: { id: accountObj }
+	async accountUpdate(accountId, accountObj) {
+		const updatedAccount = await Account.update(accountObj).where({
+			id: accountId
 		});
 
-		if (!foundAccount) {
-			const e: ErrorWithStatus = new Error("Account Not Found");
-			return e.message;
-		} else {
-			await foundAccount.update(accountObj.request.body);
-			return {
-				success: true,
-				foundAccount
-			};
-		}
+		return updatedAccount;
 	}
 }
 

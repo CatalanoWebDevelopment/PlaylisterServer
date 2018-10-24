@@ -29,7 +29,10 @@ accountRouter.get("/:id", async ctx => {
 });
 
 accountRouter.put("/:id", async ctx => {
-	let result = await accountController.accountUpdate(ctx.params.id);
+	let result = await accountController.accountUpdate(
+		ctx.params.id,
+		ctx.request.body
+	);
 
 	ctx.body = {
 		result
