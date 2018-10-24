@@ -15,6 +15,12 @@ AccountModel.hasMany(ScreenModel);
 AccountModel.hasMany(PlaylistModel);
 AccountModel.hasMany(ScheduleModel);
 
+PlaylistModel.hasMany(PlaylistItemModel);
+
+GroupModel.hasMany(PlaylistModel);
+GroupModel.hasMany(ScheduleModel);
+GroupModel.hasMany(MediaModel);
+
 UserModel.belongsTo(AccountModel);
 MediaModel.belongsTo(AccountModel);
 GroupModel.belongsTo(AccountModel);
@@ -23,7 +29,6 @@ PlaylistModel.belongsTo(AccountModel);
 ScheduleModel.belongsTo(AccountModel);
 
 PlaylistModel.belongsTo(GroupModel);
-ScreenModel.belongsTo(GroupModel);
 ScheduleModel.belongsTo(GroupModel);
 MediaModel.belongsTo(GroupModel);
 
