@@ -44,6 +44,6 @@ PlaylistItemModel.belongsTo(PlaylistModel);
 
 ScheduleModel.belongsTo(PlaylistModel);
 
-sequelize.sync({ force: true }).then(() => {
+sequelize.sync().then(() => {
 	console.log(`Database & tables created!`);
 });
