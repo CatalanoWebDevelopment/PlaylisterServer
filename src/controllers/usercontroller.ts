@@ -16,7 +16,8 @@ class UserService {
 			const createdUser = await User.create({
 				name: userObj.name,
 				email: userObj.email,
-				password: bcrypt.hashSync(userObj.password, 10)
+				password: bcrypt.hashSync(userObj.password, 10),
+				accountId: userObj.accountId
 			});
 			return {
 				createdUser,

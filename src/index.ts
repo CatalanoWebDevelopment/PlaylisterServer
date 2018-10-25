@@ -25,8 +25,8 @@ const session = require("koa-session");
 app.keys = ["secret"];
 app.use(session({}, app));
 
-const Auth0Strategy = require("passport-auth0");
-const passport = require("koa-passport");
+const Auth0Strategy = require("passport-auth0"),
+	passport = require("koa-passport");
 
 const strategy = new Auth0Strategy(
 	{
@@ -48,6 +48,15 @@ passport.use(strategy);
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Storing and Retrieving User Data from the Session
+passport.serializeUser(function(user, done) {
+	done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+	done(null, user);
+});
 
 // x-response-time
 app.use(async (ctx: Context, next) => {
