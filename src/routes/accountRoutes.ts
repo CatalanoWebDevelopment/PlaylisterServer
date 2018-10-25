@@ -29,15 +29,16 @@ accountRouter.get("/:id", async ctx => {
 });
 
 accountRouter.put("/:id", async ctx => {
-	console.log("CTX.REQUEST", ctx.request);
-	console.log("CTX.REQUEST.BODY", ctx.request.body);
+	let object = ctx.request.body;
+	ctx.assert(object, 400, "Object Required");
 
-	let result = await accountController.accountUpdate(
-		ctx.params.id,
-		ctx.request.body
-	);
+	let original: any = await accountController.accountFind(ctx.params.id);
+	ctx.assert(original, 400, "Object Required");
+
+	let updated: any = await original.update(ctx.request.body);
 
 	ctx.body = {
-		result
+		success: true,
+		updated
 	};
 });

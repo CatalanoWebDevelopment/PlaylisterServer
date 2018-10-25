@@ -41,17 +41,22 @@ class AccountService {
 
 		if (!foundAccount) {
 			const e: ErrorWithStatus = new Error("Account Not Found");
-			return e.message;
+			e.status = 404;
+			return `${e.message}, Status:${e.status}`;
 		}
 
 		return foundAccount;
 	}
 
 	async accountUpdate(accountId, accountObj) {
+		console.log("Account Obj", accountObj);
+
 		const updatedAccount = await Account.update(
 			{ accountObj },
 			{ where: { id: accountId } }
 		);
+
+		console.log("Updated Account", updatedAccount);
 
 		return updatedAccount;
 	}
