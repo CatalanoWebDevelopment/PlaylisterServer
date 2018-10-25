@@ -1,5 +1,11 @@
-module.exports = function(sequelize, DataTypes) {
+import { BaseDoc } from "../associations";
+
+export interface AccountDoc extends BaseDoc {
+	name: string;
+}
+
+export default function(sequelize, DataTypes) {
 	return sequelize.define("account", {
 		name: DataTypes.STRING
 	});
-};
+}

@@ -1,4 +1,11 @@
-const sequelize = require("./db");
+import { sequelize } from "./db";
+
+export interface BaseDoc {
+	id: number;
+	createdAt: Date;
+	updatedAt: Date;
+}
+
 const AccountModel = sequelize.import("./models/account");
 const MediaModel = sequelize.import("./models/media");
 const PlaylistModel = sequelize.import("./models/playlist");
@@ -32,13 +39,11 @@ PlaylistModel.belongsTo(GroupModel);
 ScheduleModel.belongsTo(GroupModel);
 MediaModel.belongsTo(GroupModel);
 
-PlaylistItemModel.belongsTo(MediaModel);
+PlaylistItemModel.belongsTo(MediaModel, { as: "mediaId" });
 PlaylistItemModel.belongsTo(PlaylistModel);
 
 ScheduleModel.belongsTo(PlaylistModel);
 
-// AccountModel.belongsToMany(PlaylistItemModel, { through: PlaylistModel });
-
-sequelize.sync().then(() => {
+sequelize.sync({ force: true }).then(() => {
 	console.log(`Database & tables created!`);
 });

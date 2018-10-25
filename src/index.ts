@@ -20,44 +20,6 @@ app.use(
 	})
 );
 
-// Sessions
-const session = require("koa-session");
-app.keys = ["secret"];
-app.use(session({}, app));
-
-const Auth0Strategy = require("passport-auth0"),
-	passport = require("koa-passport");
-
-const strategy = new Auth0Strategy(
-	{
-		domain: process.env.AUTH0_DOMAIN,
-		clientID: process.env.AUTH0_CLIENT_ID,
-		clientSecret: process.env.AUTH0_CLIENT_SECRET,
-		callbackURL: process.env.AUTH0_CALLBACK_URL,
-		state: true
-	},
-	function(accessToken, refreshToken, extraParams, profile, done) {
-		// accessToken is the token to call Auth0 API (not needed in the most cases)
-		// extraParams.id_token has the JSON Web Token
-		// profile has all the information from the user
-		return done(null, profile);
-	}
-);
-
-passport.use(strategy);
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-// Storing and Retrieving User Data from the Session
-passport.serializeUser(function(user, done) {
-	done(null, user);
-});
-
-passport.deserializeUser(function(user, done) {
-	done(null, user);
-});
-
 // x-response-time
 app.use(async (ctx: Context, next) => {
 	const start = Date.now();

@@ -1,17 +1,23 @@
+import { BaseDoc } from "../associations";
+
 export enum NextAction {
-	play = "play",
-	pause = "pause",
-	next = "next",
-	loop = "loop"
+	Play = "play",
+	Pause = "pause",
+	Next = "next",
+	Loop = "loop"
 }
 
-export interface PlayListItemDoc {
-	next_action: NextAction;
+export interface PlayListItemDoc extends BaseDoc {
+	mediaId: number;
+	playlistId: number;
+	nextAction: NextAction;
 }
 
-module.exports = function(sequelize, DataTypes) {
-	return sequelize.define("playlist_item", {
-		next_action: DataTypes.ENUM,
-		values: ["play", "pause", "next", "loop"]
+export default function(sequelize, DataTypes) {
+	return sequelize.define("playlistItem", {
+		nextAction: {
+			type: DataTypes.ENUM,
+			values: ["play", "pause", "next", "loop"]
+		}
 	});
-};
+}

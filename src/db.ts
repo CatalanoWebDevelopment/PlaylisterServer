@@ -1,11 +1,16 @@
 const Sequelize = require("sequelize");
 
-const seq = new Sequelize("playlister", "postgres", process.env.PASS, {
-	host: "localhost",
-	dialect: "postgres"
-});
+export const sequelize = new Sequelize(
+	"playlister",
+	"postgres",
+	process.env.PASS,
+	{
+		host: "localhost",
+		dialect: "postgres"
+	}
+);
 
-seq.authenticate().then(
+sequelize.authenticate().then(
 	function() {
 		console.log("Connected to Playlister Database.");
 	},
@@ -13,5 +18,3 @@ seq.authenticate().then(
 		console.log(err);
 	}
 );
-
-module.exports = seq;
