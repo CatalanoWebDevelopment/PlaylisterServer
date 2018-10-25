@@ -6,7 +6,7 @@ export interface MediaDoc extends BaseDoc {
 	thumbUrl: string;
 	available: boolean;
 	size: number;
-	length: number;
+	clipLength: number;
 	accountId: number;
 	groupId: number;
 }
@@ -17,7 +17,7 @@ export default function(sequelize, DataTypes) {
 		url: DataTypes.STRING,
 		thumbUrl: DataTypes.STRING,
 		available: DataTypes.BOOLEAN,
-		size: DataTypes.NUMBER,
-		length: DataTypes.INTEGER
+		size: DataTypes.INTEGER,
+		clipLength: DataTypes.INTEGER
 	});
 }

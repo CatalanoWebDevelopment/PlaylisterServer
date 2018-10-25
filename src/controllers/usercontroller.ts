@@ -1,6 +1,6 @@
-import { createContext } from "vm";
+import { sequelize } from "../db";
 
-const User = require("../db").import("../models/user");
+const User = sequelize.import("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 

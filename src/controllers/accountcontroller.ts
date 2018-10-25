@@ -1,4 +1,6 @@
-const Account = require("../db").import("../models/account");
+import { sequelize } from "../db";
+
+const Account = sequelize.import("../models/account");
 
 interface ErrorWithStatus extends Error {
 	status?: number;

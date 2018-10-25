@@ -1,4 +1,6 @@
-const Media = require("../db").import("../models/media");
+import { sequelize } from "../db";
+
+const Media = sequelize.import("../models/media");
 
 class MediaService {
 	async mediaCreate(accountId, groupId, mediaObj) {

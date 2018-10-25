@@ -39,7 +39,7 @@ PlaylistModel.belongsTo(GroupModel);
 ScheduleModel.belongsTo(GroupModel);
 MediaModel.belongsTo(GroupModel);
 
-PlaylistItemModel.belongsTo(MediaModel, { as: "mediaId" });
+PlaylistItemModel.belongsTo(MediaModel, { as: "media" });
 PlaylistItemModel.belongsTo(PlaylistModel);
 
 ScheduleModel.belongsTo(PlaylistModel);

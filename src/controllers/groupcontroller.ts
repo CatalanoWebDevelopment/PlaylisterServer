@@ -1,4 +1,6 @@
-const Group = require("../db").import("../models/group");
+import { sequelize } from "../db";
+
+const Group = sequelize.import("../models/group");
 
 class GroupService {
 	async groupCreate(accountId, groupObj) {
