@@ -4,6 +4,11 @@ const User = sequelize.import("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+interface ErrorWithStatus extends Error {
+	status?: number;
+	message: string;
+}
+
 class UserService {
 	_createToken(user) {
 		return jwt.sign({ email: user.email }, process.env.JWT_SECRET, {
@@ -66,8 +71,9 @@ class UserService {
 		});
 
 		if (!foundUser) {
-			const e = new Error("User Not Found");
-			return e.message;
+			const e: ErrorWithStatus = new Error("User Not Found");
+			e.status = 404;
+			return `${e.message}, Status: ${e.status}`;
 		} else {
 			await User.destroy({
 				where: { id: userId }
@@ -76,6 +82,22 @@ class UserService {
 			return { success: true };
 		}
 	}
+
+	async userFind(userId) {
+		const foundUser = await User.findOne({
+			where: { id: userId }
+		});
+
+		if (!foundUser) {
+			const e: ErrorWithStatus = new Error("User Not Found");
+			e.status = 404;
+			return `${e.message}, Status: ${e.status}`;
+		}
+
+		return foundUser;
+	}
+
+	async userUpdate(userObj) {}
 }
 
 export const userController = new UserService();

@@ -3,7 +3,7 @@ import { accountController } from "../controllers/accountcontroller";
 
 export const accountRouter = new Router();
 
-accountRouter.post("/register", async ctx => {
+accountRouter.post("/", async ctx => {
 	const result = await accountController.accountCreate(ctx.request.body);
 
 	ctx.body = {
