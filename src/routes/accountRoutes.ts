@@ -29,6 +29,9 @@ accountRouter.get("/:id", async ctx => {
 });
 
 accountRouter.put("/:id", async ctx => {
+	console.log("CTX.REQUEST", ctx.request);
+	console.log("CTX.REQUEST.BODY", ctx.request.body);
+
 	let result = await accountController.accountUpdate(
 		ctx.params.id,
 		ctx.request.body
