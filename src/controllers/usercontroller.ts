@@ -11,9 +11,13 @@ interface ErrorWithStatus extends Error {
 
 class UserService {
 	_createToken(user) {
-		return jwt.sign({ email: user.email }, process.env.JWT_SECRET, {
-			expiresIn: "24h"
-		});
+		return jwt.sign(
+			{ email: user.email, userId: user.id },
+			process.env.JWT_SECRET,
+			{
+				expiresIn: "24h"
+			}
+		);
 	}
 
 	async userCreate(userObj) {

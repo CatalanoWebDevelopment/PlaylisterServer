@@ -1,14 +1,14 @@
 import jsonwebtoken from "jsonwebtoken";
 
-const secret = process.env.SECRET;
-
 export const loginRequired = async (ctx, next) => {
 	ctx.assert(ctx.header.authorization, 401, "Authentication Error");
 	const parts = ctx.header.authorization.split(" ");
 	ctx.assert(parts.length === 2, 401, "Authentication Error");
 	const token = parts[1];
 
-	const payload = decode(token);
+	const payload = jsonwebtoken.verify(token, process.env.JWT_SECRET);
+
+	console.log("PAYLOAD", payload);
 
 	ctx.assert(payload.userId, 401, "Authentication Error");
 
@@ -23,8 +23,8 @@ export const sign = (payload: any, expiresIn: string | false): string => {
 		options = { expiresIn };
 	}
 
-	return jsonwebtoken.sign(payload, secret, options);
+	return jsonwebtoken.sign(payload, process.env.JWT_SECRET, options);
 };
 
-export const decode = (token: string): any =>
-	jsonwebtoken.verify(token, secret);
+// export const decode = (token: string): any =>
+// 	jsonwebtoken.verify(token, process.env.SECRET);
