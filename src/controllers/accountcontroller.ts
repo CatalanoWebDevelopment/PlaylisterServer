@@ -49,14 +49,10 @@ class AccountService {
 	}
 
 	async accountUpdate(accountId, accountObj) {
-		console.log("Account Obj", accountObj);
-
 		const updatedAccount = await Account.update(
 			{ accountObj },
 			{ where: { id: accountId } }
 		);
-
-		console.log("Updated Account", updatedAccount);
 
 		return updatedAccount;
 	}

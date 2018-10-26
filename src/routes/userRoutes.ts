@@ -34,3 +34,36 @@ userRouter.delete("/:id", loginRequired, async ctx => {
 		user
 	};
 });
+
+userRouter.get("/:id", loginRequired, async ctx => {
+	let user = await userController.userFind(ctx.params.id);
+	ctx.assert(user, 400, "Object Required");
+
+	ctx.body = {
+		user
+	};
+});
+
+userRouter.get("/all/:id", loginRequired, async ctx => {
+	let users = await userController.userFindAll(ctx.params.id);
+	ctx.assert(users, 400, "Object Required");
+
+	ctx.body = {
+		users
+	};
+});
+
+userRouter.put("/:id", loginRequired, async ctx => {
+	let object = ctx.request.body;
+	ctx.assert(object, 400, "Object Required");
+
+	let original: any = await userController.userFind(ctx.params.id);
+	ctx.assert(original, 400, "Object Required");
+
+	let updated: any = await original.update(ctx.request.body);
+
+	ctx.body = {
+		success: true,
+		updated
+	};
+});

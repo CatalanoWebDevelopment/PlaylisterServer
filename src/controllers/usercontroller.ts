@@ -101,7 +101,28 @@ class UserService {
 		return foundUser;
 	}
 
-	async userUpdate(userObj) {}
+	async userFindAll(accountId) {
+		const foundUsers = await User.findAll({
+			where: { accountId: accountId }
+		});
+
+		if (!foundUsers) {
+			const e: ErrorWithStatus = new Error("No Users Within Account");
+			e.status = 404;
+			throw `${e.message}, Status: ${e.status}`;
+		}
+
+		return foundUsers;
+	}
+
+	async userUpdate(userId, userObj) {
+		const updatedUser = await User.update(
+			{ userObj },
+			{ where: { id: userId } }
+		);
+
+		return updatedUser;
+	}
 }
 
 export const userController = new UserService();
