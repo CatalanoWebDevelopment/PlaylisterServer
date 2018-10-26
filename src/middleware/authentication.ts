@@ -8,8 +8,6 @@ export const loginRequired = async (ctx, next) => {
 
 	const payload = jsonwebtoken.verify(token, process.env.JWT_SECRET);
 
-	console.log("PAYLOAD", payload);
-
 	ctx.assert(payload.userId, 401, "Authentication Error");
 	ctx.assert(payload.accountId, 401, "Authentication Error");
 

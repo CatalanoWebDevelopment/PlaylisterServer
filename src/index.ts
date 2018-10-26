@@ -9,6 +9,8 @@ import { userRouter } from "./routes/userRoutes";
 import { accountRouter } from "./routes/accountRoutes";
 import { errorHandler } from "./middleware/errorHandling";
 import { groupRouter } from "./routes/groupRoutes";
+import { mediaRouter } from "./routes/mediaRoutes";
+import { playlistRouter } from "./routes/playlistRoutes";
 
 const app = new Koa();
 
@@ -44,6 +46,8 @@ const router = new Router();
 router.use("/user", userRouter.routes());
 router.use("/account", accountRouter.routes());
 router.use("/group", groupRouter.routes());
+router.use("/media", mediaRouter.routes());
+router.use("/playlist", playlistRouter.routes());
 
 app.use(router.routes());
 app.use((ctx: Context) => {

@@ -1,6 +1,4 @@
 import { sequelize } from "../db";
-import { createContext } from "vm";
-
 const Media = sequelize.import("../models/media");
 
 interface ErrorWithStatus extends Error {
@@ -16,10 +14,10 @@ class MediaService {
 				groupId: groupId,
 				name: mediaObj.name,
 				url: mediaObj.url,
-				thumb_url: mediaObj.thumb_url,
+				thumbUrl: mediaObj.thumbUrl,
 				available: mediaObj.available,
 				size: mediaObj.size,
-				length: mediaObj.length
+				clipLength: mediaObj.clipLength
 			});
 
 			return createdMedia;

@@ -4,24 +4,20 @@ import { loginRequired } from "../middleware/authentication";
 
 export const mediaRouter = new Router();
 
-mediaRouter.post(
-	"account/:accountId/group/:groupId",
-	loginRequired,
-	async ctx => {
-		const result = await mediaController.mediaCreate(
-			ctx.state.accountId,
-			ctx.params.groupId,
-			ctx.request.body
-		);
+mediaRouter.post("/group/:groupId", loginRequired, async ctx => {
+	const result = await mediaController.mediaCreate(
+		ctx.state.accountId,
+		ctx.params.groupId,
+		ctx.request.body
+	);
 
-		ctx.assert(result, 404, "Object Required");
+	ctx.assert(result, 404, "Object Required");
 
-		ctx.body = {
-			success: true,
-			result
-		};
-	}
-);
+	ctx.body = {
+		success: true,
+		result
+	};
+});
 
 mediaRouter.delete("/:id", loginRequired, async ctx => {
 	let object = await mediaController.mediaFind(
