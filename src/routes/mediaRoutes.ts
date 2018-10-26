@@ -22,3 +22,47 @@ mediaRouter.post(
 		};
 	}
 );
+
+mediaRouter.delete("/:id", loginRequired, async ctx => {
+	let object = await mediaController.mediaFind(ctx.params.id);
+	ctx.assert(object, 400, "Object Required");
+
+	let media = await mediaController.mediaDelete(object.id);
+
+	ctx.body = {
+		media
+	};
+});
+
+mediaRouter.get("/:id", loginRequired, async ctx => {
+	let media = await mediaController.mediaFind(ctx.params.id);
+	ctx.assert(media, 400, "Object Required");
+
+	ctx.body = {
+		media
+	};
+});
+
+mediaRouter.get("/all/:id", loginRequired, async ctx => {
+	let media = await mediaController.mediaFindAll(ctx.params.id);
+	ctx.assert(media, 400, "Object Required");
+
+	ctx.body = {
+		media
+	};
+});
+
+mediaRouter.put("/:id", loginRequired, async ctx => {
+	let object = ctx.request.body;
+	ctx.assert(object, 400, "Object Required");
+
+	let original: any = await mediaController.mediaFind(ctx.params.id);
+	ctx.assert(original, 400, "Object Required");
+
+	let updated: any = await original.update(ctx.request.body);
+
+	ctx.body = {
+		success: true,
+		updated
+	};
+});
