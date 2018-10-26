@@ -81,3 +81,18 @@ playlistItemRouter.put("/:id", loginRequired, async ctx => {
 		updated
 	};
 });
+
+playlistItemRouter.get(
+	"/master/playlist/:playlistId",
+	loginRequired,
+	async ctx => {
+		let playlistItems = playlistItemController.playlistItemMasterFetch(
+			ctx.state.accountId,
+			ctx.params.playlistId
+		);
+
+		ctx.body = {
+			playlistItems
+		};
+	}
+);

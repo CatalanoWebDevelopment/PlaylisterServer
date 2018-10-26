@@ -1,4 +1,6 @@
 import { sequelize } from "../db";
+import playlist from "../models/playlist";
+import media from "../models/media";
 const PlaylistItem = sequelize.import("../models/playlistItem");
 
 interface ErrorWithStatus extends Error {
@@ -15,8 +17,6 @@ class PlaylistItemService {
 				mediaId: mediaId,
 				nextAction: playlistItemObj.nextAction
 			});
-
-			console.log("PLAYLIST ITEM OBJ", playlistItemObj);
 
 			return createdPlaylistItem;
 		} catch (e) {
@@ -80,6 +80,23 @@ class PlaylistItemService {
 		);
 
 		return updatedPlaylistItem;
+	}
+
+	async playlistItemMasterFetch(accountId, playlistId) {
+		const fetchedPlaylistItems = await PlaylistItem.findAll({
+			where: { accountId, playlistId },
+			include: [
+				{
+					model: playlist,
+					through: {
+						attributes: ["playlistId"],
+						where: { playlistId, accountId }
+					}
+				}
+			]
+		});
+
+		return fetchedPlaylistItems;
 	}
 }
 
