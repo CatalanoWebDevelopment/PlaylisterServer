@@ -31,9 +31,9 @@ class MediaService {
 		}
 	}
 
-	async mediaFind(mediaId) {
+	async mediaFind(accountId, mediaId) {
 		const foundMedia = await Media.findOne({
-			where: { id: mediaId }
+			where: { accountId, id: mediaId }
 		});
 
 		if (!foundMedia) {
@@ -59,9 +59,9 @@ class MediaService {
 		return foundMedia;
 	}
 
-	async mediaDelete(mediaId) {
+	async mediaDelete(accountId, mediaId) {
 		const foundMedia = await Media.findOne({
-			where: { id: mediaId }
+			where: { accountId, id: mediaId }
 		});
 
 		if (!foundMedia) {
@@ -77,10 +77,10 @@ class MediaService {
 		}
 	}
 
-	async mediaUpdate(mediaId, mediaObj) {
+	async mediaUpdate(accountId, mediaId, mediaObj) {
 		const updatedMedia = await Media.update(
 			{ mediaObj },
-			{ where: { id: mediaId } }
+			{ where: { accountId, id: mediaId } }
 		);
 
 		return updatedMedia;

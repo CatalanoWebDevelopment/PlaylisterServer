@@ -9,7 +9,7 @@ mediaRouter.post(
 	loginRequired,
 	async ctx => {
 		const result = await mediaController.mediaCreate(
-			ctx.params.accountId,
+			ctx.state.accountId,
 			ctx.params.groupId,
 			ctx.request.body
 		);
@@ -24,10 +24,13 @@ mediaRouter.post(
 );
 
 mediaRouter.delete("/:id", loginRequired, async ctx => {
-	let object = await mediaController.mediaFind(ctx.params.id);
-	ctx.assert(object, 400, "Object Required");
+	let object = await mediaController.mediaFind(
+		ctx.state.accountId,
+		ctx.params.id
+	);
+	ctx.assert(object, 404, "Object Required");
 
-	let media = await mediaController.mediaDelete(object.id);
+	let media = await mediaController.mediaDelete(ctx.state.accountId, object.id);
 
 	ctx.body = {
 		media
@@ -35,8 +38,11 @@ mediaRouter.delete("/:id", loginRequired, async ctx => {
 });
 
 mediaRouter.get("/:id", loginRequired, async ctx => {
-	let media = await mediaController.mediaFind(ctx.params.id);
-	ctx.assert(media, 400, "Object Required");
+	let media = await mediaController.mediaFind(
+		ctx.state.accountId,
+		ctx.params.id
+	);
+	ctx.assert(media, 404, "Object Required");
 
 	ctx.body = {
 		media
@@ -45,7 +51,7 @@ mediaRouter.get("/:id", loginRequired, async ctx => {
 
 mediaRouter.get("/all/:id", loginRequired, async ctx => {
 	let media = await mediaController.mediaFindAll(ctx.params.id);
-	ctx.assert(media, 400, "Object Required");
+	ctx.assert(media, 404, "Object Required");
 
 	ctx.body = {
 		media
@@ -54,10 +60,13 @@ mediaRouter.get("/all/:id", loginRequired, async ctx => {
 
 mediaRouter.put("/:id", loginRequired, async ctx => {
 	let object = ctx.request.body;
-	ctx.assert(object, 400, "Object Required");
+	ctx.assert(object, 404, "Object Required");
 
-	let original: any = await mediaController.mediaFind(ctx.params.id);
-	ctx.assert(original, 400, "Object Required");
+	let original: any = await mediaController.mediaFind(
+		ctx.state.accountId,
+		ctx.params.id
+	);
+	ctx.assert(original, 404, "Object Required");
 
 	let updated: any = await original.update(ctx.request.body);
 

@@ -11,8 +11,10 @@ export const loginRequired = async (ctx, next) => {
 	console.log("PAYLOAD", payload);
 
 	ctx.assert(payload.userId, 401, "Authentication Error");
+	ctx.assert(payload.accountId, 401, "Authentication Error");
 
 	ctx.state.userId = payload.userId;
+	ctx.state.accountId = payload.accountId;
 
 	return next();
 };
