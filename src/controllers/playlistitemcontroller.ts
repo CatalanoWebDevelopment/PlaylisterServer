@@ -1,0 +1,86 @@
+import { sequelize } from "../db";
+const PlaylistItem = sequelize.import("../models/playlistItem");
+
+interface ErrorWithStatus extends Error {
+	status?: number;
+	message: string;
+}
+
+class PlaylistItemService {
+	async playlistItemCreate(accountId, playlistId, mediaId, playlistItemObj) {
+		try {
+			const createdPlaylistItem = await PlaylistItem.create({
+				accountId: accountId,
+				playlistId: playlistId,
+				mediaId: mediaId,
+				nextAction: playlistItemObj.nextAction
+			});
+
+			console.log("PLAYLIST ITEM OBJ", playlistItemObj);
+
+			return createdPlaylistItem;
+		} catch (e) {
+			return {
+				error: true,
+				e: e.errors[0].message
+			};
+		}
+	}
+
+	async playlistItemFind(accountId, playlistItemId) {
+		const foundPlaylistItem = await PlaylistItem.findOne({
+			where: { accountId, id: playlistItemId }
+		});
+
+		if (!foundPlaylistItem) {
+			const e: ErrorWithStatus = new Error("playlistItem Not Found");
+			e.status = 404;
+			return `${e.message}, Status: ${e.status}`;
+		}
+
+		return foundPlaylistItem;
+	}
+
+	async playlistItemFindAll(accountId) {
+		const foundPlaylistItem = await PlaylistItem.findAll({
+			where: { accountId }
+		});
+
+		if (!foundPlaylistItem) {
+			const e: ErrorWithStatus = new Error("No PlaylistItems Within Account");
+			e.status = 404;
+			throw `${e.message}, Status: ${e.status}`;
+		}
+
+		return foundPlaylistItem;
+	}
+
+	async playlistItemDelete(accountId, playlistItemId) {
+		const foundPlaylistItem = await PlaylistItem.findOne({
+			where: { accountId, id: playlistItemId }
+		});
+
+		if (!foundPlaylistItem) {
+			const e: ErrorWithStatus = new Error("PlaylistItem Not Found");
+			e.status = 404;
+			return `${e.message}, Status: ${e.status}`;
+		} else {
+			await PlaylistItem.destroy({
+				where: { id: playlistItemId }
+			});
+
+			return { success: true };
+		}
+	}
+
+	async playlistItemUpdate(accountId, playlistItemId, playlistItemObj) {
+		const updatedPlaylistItem = await PlaylistItem.update(
+			{ playlistItemObj },
+			{ where: { accountId, id: playlistItemId } }
+		);
+
+		return updatedPlaylistItem;
+	}
+}
+
+export const playlistItemController = new PlaylistItemService();

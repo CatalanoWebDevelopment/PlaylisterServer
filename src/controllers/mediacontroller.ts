@@ -45,7 +45,7 @@ class MediaService {
 
 	async mediaFindAll(accountId) {
 		const foundMedia = await Media.findAll({
-			where: { accountId: accountId }
+			where: { accountId }
 		});
 
 		if (!foundMedia) {
