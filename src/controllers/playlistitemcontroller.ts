@@ -84,15 +84,7 @@ class PlaylistItemService {
 	async playlistItemMasterFetch(accountId, playlistId) {
 		const fetchedPlaylistItems = await PlaylistItem.findAll({
 			where: { accountId, playlistId },
-			include: [
-				{
-					model: playlist,
-					through: {
-						attributes: ["playlistId"],
-						where: { playlistId, accountId }
-					}
-				}
-			]
+			include: ["playlist"]
 		});
 
 		return fetchedPlaylistItems;

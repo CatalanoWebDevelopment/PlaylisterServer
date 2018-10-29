@@ -86,7 +86,7 @@ playlistItemRouter.get(
 	"/master/playlist/:playlistId",
 	loginRequired,
 	async ctx => {
-		let playlistItems = playlistItemController.playlistItemMasterFetch(
+		let playlistItems = await playlistItemController.playlistItemMasterFetch(
 			ctx.state.accountId,
 			ctx.params.playlistId
 		);
