@@ -1,6 +1,5 @@
 import { sequelize } from "../db";
 import playlist from "../models/playlist";
-import media from "../models/media";
 const PlaylistItem = sequelize.import("../models/playlistItem");
 
 interface ErrorWithStatus extends Error {
