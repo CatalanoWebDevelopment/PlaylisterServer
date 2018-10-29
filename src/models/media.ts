@@ -8,7 +8,7 @@ export enum MediaType {
 export interface MediaDoc extends BaseDoc {
 	name: string;
 	url: string;
-	type: MediaType;
+	mediaType: MediaType;
 	thumbUrl: string;
 	available: boolean;
 	size: number;
@@ -25,7 +25,7 @@ export default function(sequelize, DataTypes) {
 		available: DataTypes.BOOLEAN,
 		size: DataTypes.INTEGER,
 		clipLength: DataTypes.INTEGER,
-		type: {
+		mediaType: {
 			type: DataTypes.ENUM,
 			values: ["image", "video"]
 		}

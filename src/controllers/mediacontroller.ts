@@ -17,7 +17,8 @@ class MediaService {
 				thumbUrl: mediaObj.thumbUrl,
 				available: mediaObj.available,
 				size: mediaObj.size,
-				clipLength: mediaObj.clipLength
+				clipLength: mediaObj.clipLength,
+				mediaType: mediaObj.mediaType
 			});
 
 			return createdMedia;
