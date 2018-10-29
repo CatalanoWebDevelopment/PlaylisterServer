@@ -1,5 +1,4 @@
 import { sequelize } from "../db";
-import playlist from "../models/playlist";
 const PlaylistItem = sequelize.import("../models/playlistItem");
 
 interface ErrorWithStatus extends Error {
@@ -84,7 +83,7 @@ class PlaylistItemService {
 	async playlistItemMasterFetch(accountId, playlistId) {
 		const fetchedPlaylistItems = await PlaylistItem.findAll({
 			where: { accountId, playlistId },
-			include: ["playlist"]
+			include: ["playlist", "media"]
 		});
 
 		return fetchedPlaylistItems;
