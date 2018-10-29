@@ -8,6 +8,7 @@ export enum NextAction {
 }
 
 export interface PlayListItemDoc extends BaseDoc {
+	accountId: number;
 	mediaId: number;
 	playlistId: number;
 	nextAction: NextAction;

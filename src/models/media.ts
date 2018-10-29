@@ -1,8 +1,14 @@
 import { BaseDoc } from "../associations";
 
+export enum MediaType {
+	Image = "image",
+	Video = "video"
+}
+
 export interface MediaDoc extends BaseDoc {
 	name: string;
 	url: string;
+	type: MediaType;
 	thumbUrl: string;
 	available: boolean;
 	size: number;
@@ -18,6 +24,10 @@ export default function(sequelize, DataTypes) {
 		thumbUrl: DataTypes.STRING,
 		available: DataTypes.BOOLEAN,
 		size: DataTypes.INTEGER,
-		clipLength: DataTypes.INTEGER
+		clipLength: DataTypes.INTEGER,
+		type: {
+			type: DataTypes.ENUM,
+			values: ["image", "video"]
+		}
 	});
 }
