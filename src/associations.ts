@@ -28,7 +28,9 @@ PlaylistModel.hasMany(PlaylistItemModel);
 GroupModel.hasMany(PlaylistModel);
 GroupModel.hasMany(ScheduleModel);
 GroupModel.hasMany(MediaModel);
+GroupModel.hasMany(ScreenModel);
 
+ScreenModel.belongsTo(GroupModel);
 UserModel.belongsTo(AccountModel);
 MediaModel.belongsTo(AccountModel);
 GroupModel.belongsTo(AccountModel);
