@@ -13,6 +13,7 @@ import { mediaRouter } from "./routes/mediaRoutes";
 import { playlistRouter } from "./routes/playlistRoutes";
 import { playlistItemRouter } from "./routes/playlistItemRoutes";
 import { scheduleRouter } from "./routes/scheduleRoutes";
+import { screenRouter } from "./routes/screenRoutes";
 
 const app = new Koa();
 
@@ -52,6 +53,7 @@ router.use("/media", mediaRouter.routes());
 router.use("/playlist", playlistRouter.routes());
 router.use("/playlistItem", playlistItemRouter.routes());
 router.use("/schedule", scheduleRouter.routes());
+router.use("/screen", screenRouter.routes());
 
 app.use(router.routes());
 app.use((ctx: Context) => {

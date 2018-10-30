@@ -87,3 +87,5 @@ class ScreenService {
 		return fetchedScreens;
 	}
 }
+
+export const screenController = new ScreenService();
