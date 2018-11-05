@@ -13,7 +13,7 @@
     "watch-ts": "tsc -w",
     "watch-node": "nodemon dist/index.js"
   },
-  "author": "Kevin Smith",
+  "author": "Kevin Smith & Parker Catalano",
   "dependencies": {
     "bcrypt": "^3.0.2",
     "dotenv": "^6.1.0",
