@@ -1,6 +1,8 @@
 import { sequelize } from "../db";
 
 const Account = sequelize.import("../models/account");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 interface ErrorWithStatus extends Error {
 	status?: number;
@@ -8,9 +10,23 @@ interface ErrorWithStatus extends Error {
 }
 
 class AccountService {
+	_createToken(account) {
+		return jwt.sign(
+			{
+				name: account.name,
+				accountId: account.id
+			},
+			process.env.JWT_SECRET,
+			{
+				expiresIn: "24h"
+			}
+		);
+	}
+
 	async accountCreate(accountObj) {
 		const createdAccount = await Account.create({
-			name: accountObj.name
+			name: accountObj.name,
+			password: bcrypt.hashSync(accountObj.password, 10)
 		});
 
 		return createdAccount;
