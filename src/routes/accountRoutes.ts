@@ -4,6 +4,7 @@ import { accountController } from "../controllers/accountcontroller";
 export const accountRouter = new Router();
 
 accountRouter.post("/register", async ctx => {
+
 	const result = await accountController.accountCreate(ctx.request.body);
 
 	ctx.body = {
@@ -11,6 +12,17 @@ accountRouter.post("/register", async ctx => {
 		result
 	};
 });
+
+accountRouter.post("/login", async ctx => {
+	let object = ctx.request.body;
+	ctx.assert(object, 404, "Object Required")
+
+	let account = await accountController.accountLogin(object);
+
+	ctx.body = {
+		account
+	};
+})
 
 accountRouter.delete("/:id", async ctx => {
 	let result = await accountController.accountDelete(ctx.params.id);

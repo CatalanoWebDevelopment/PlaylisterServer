@@ -15,7 +15,7 @@ userRouter.post("/register", async ctx => {
 
 userRouter.post("/login", async ctx => {
 	let object = ctx.request.body;
-	ctx.assert(object, 400, "Object Required");
+	ctx.assert(object, 404, "Object Required");
 
 	let user = await userController.userLogin(object);
 

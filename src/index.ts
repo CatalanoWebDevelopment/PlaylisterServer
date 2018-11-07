@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import Koa from "koa";
+const cors = require('@koa/cors');
 import { Context } from "koa";
 import Router from "koa-router";
 import bodyParser from "koa-bodyparser";
@@ -14,6 +15,8 @@ import { playlistRouter } from "./routes/playlistRoutes";
 import { playlistItemRouter } from "./routes/playlistItemRoutes";
 import { scheduleRouter } from "./routes/scheduleRoutes";
 import { screenRouter } from "./routes/screenRoutes";
+import { headers } from "./middleware/headers";
+
 
 const app = new Koa();
 
@@ -24,6 +27,9 @@ app.use(
 		jsonLimit: "10mb"
 	})
 );
+
+app.use(cors());
+app.use(headers);
 
 // x-response-time
 app.use(async (ctx: Context, next) => {

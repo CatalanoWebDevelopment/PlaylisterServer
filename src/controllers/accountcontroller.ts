@@ -32,6 +32,37 @@ class AccountService {
 		return createdAccount;
 	}
 
+	async accountLogin(accountObj) {
+		try {
+			const loggedInAccount = await Account.findOne({
+				where: { name: accountObj.name }
+			});
+			const isAccount = await bcrypt.compare(
+				accountObj.password,
+				loggedInAccount.password
+			);
+			if (isAccount) {
+				return {
+					loggedInAccount,
+					error: false,
+					token: this._createToken(loggedInAccount)
+				};
+			} else {
+				return {
+					error: true,
+					errorMsg: "Wrong Account name or password"
+				};
+			}
+		} catch (e) {
+			return {
+				error: true,
+				errorMsg: "Account doesn't exist"
+			};
+		}
+	}
+
+	
+
 	async accountDelete(accountId) {
 		const foundAccount = await Account.findOne({
 			where: { id: accountId }
