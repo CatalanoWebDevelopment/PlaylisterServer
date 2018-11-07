@@ -29,7 +29,10 @@ class AccountService {
 			password: bcrypt.hashSync(accountObj.password, 10)
 		});
 
-		return createdAccount;
+		return {
+			createdAccount,
+			token: this._createToken(createdAccount)
+		};
 	}
 
 	async accountLogin(accountObj) {
