@@ -103,7 +103,7 @@ class UserService {
 
 	async userFindAll(accountId) {
 		const foundUsers = await User.findAll({
-			where: { accountId: accountId }
+			where: { accountId }
 		});
 
 		if (!foundUsers) {
