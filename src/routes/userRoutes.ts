@@ -1,6 +1,6 @@
 import Router from "koa-router";
 import { userController } from "../controllers/usercontroller";
-import { loginRequired } from "../middleware/authentication";
+import { loginRequired, accountRequired } from "../middleware/authentication";
 
 export const userRouter = new Router();
 
@@ -24,7 +24,7 @@ userRouter.post("/login", async ctx => {
 	};
 });
 
-userRouter.delete("/:id", loginRequired, async ctx => {
+userRouter.delete("/:id", accountRequired, async ctx => {
 	let object = await userController.userFind(ctx.params.id);
 	ctx.assert(object, 400, "Object Required");
 
@@ -35,7 +35,7 @@ userRouter.delete("/:id", loginRequired, async ctx => {
 	};
 });
 
-userRouter.get("/:id", loginRequired, async ctx => {
+userRouter.get("/:id", accountRequired, async ctx => {
 	let user = await userController.userFind(ctx.params.id);
 	ctx.assert(user, 400, "Object Required");
 
@@ -44,7 +44,7 @@ userRouter.get("/:id", loginRequired, async ctx => {
 	};
 });
 
-userRouter.get("/all/:id", loginRequired, async ctx => {
+userRouter.get("/all/:id", accountRequired, async ctx => {
 	let users = await userController.userFindAll(ctx.params.id);
 	ctx.assert(users, 400, "Object Required");
 
@@ -53,7 +53,7 @@ userRouter.get("/all/:id", loginRequired, async ctx => {
 	};
 });
 
-userRouter.put("/:id", loginRequired, async ctx => {
+userRouter.put("/:id", accountRequired, async ctx => {
 	let object = ctx.request.body;
 	ctx.assert(object, 400, "Object Required");
 

@@ -17,6 +17,21 @@ export const loginRequired = async (ctx, next) => {
 	return next();
 };
 
+export const accountRequired = async (ctx, next) => {
+	ctx.assert(ctx.header.authorization, 401, "Authentication Error");
+	const parts = ctx.header.authorization.split(" ");
+	ctx.assert(parts.length === 2, 401, "Authentication Error");
+	const token = parts[1];
+
+	const payload = jsonwebtoken.verify(token, process.env.JWT_SECRET);
+
+	ctx.assert(payload.accountId, 401, "Authentication Error");
+
+	ctx.state.accountId = payload.accountId;
+
+	return next();
+}
+
 export const sign = (payload: any, expiresIn: string | false): string => {
 	let options;
 	if (expiresIn) {
